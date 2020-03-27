@@ -7,6 +7,6 @@ public class Teste {
 	public static void main(String[] args) {
 		System.out.println("teste");
 		Impressora impressora = new Impressora();
-		impressora.imprime("texto");
+		impressora.imprime("teste de impressao");
 	}
 }
