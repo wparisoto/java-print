@@ -9,6 +9,11 @@ import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.JobName;
+import javax.print.attribute.standard.MediaSizeName;
+import javax.print.attribute.standard.OrientationRequested;
 
 public final class Impressora {
 	// variavel estatica porque será utilizada por inumeras threads
@@ -50,7 +55,12 @@ public final class Impressora {
 				InputStream stream = new ByteArrayInputStream(texto.getBytes());
 				DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 				Doc doc = new SimpleDoc(stream, flavor, null);
-				dpj.print(doc, null);
+				PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
+				printerAttributes.add(new JobName("Impressao", null));
+				printerAttributes.add(OrientationRequested.PORTRAIT);
+				printerAttributes.add(MediaSizeName.ISO_A4);
+
+				dpj.print(doc, (PrintRequestAttributeSet) printerAttributes);
 				return true;
 			} catch (PrintException e) {
 				e.printStackTrace();
@@ -72,7 +82,12 @@ public final class Impressora {
 				InputStream stream = new ByteArrayInputStream(bytes);
 				DocFlavor flavor = DocFlavor.INPUT_STREAM.AUTOSENSE;
 				Doc doc = new SimpleDoc(stream, flavor, null);
-				dpj.print(doc, null);
+				PrintRequestAttributeSet printerAttributes = new HashPrintRequestAttributeSet();
+				printerAttributes.add(new JobName("Impressao", null));
+				printerAttributes.add(OrientationRequested.PORTRAIT);
+				printerAttributes.add(MediaSizeName.ISO_A4);
+
+				dpj.print(doc, (PrintRequestAttributeSet) printerAttributes);
 				return true;
 			} catch (PrintException e) {
 				e.printStackTrace();
